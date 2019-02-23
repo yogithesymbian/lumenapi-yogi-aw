@@ -16,10 +16,20 @@ $router->get('/', function () use ($router)
     return $router->app->version();
 });
 
-$router->get('/key', function ()
-{
-    return str_random(32);
-});
+// Lumen Framework API Tutorial - 07 Lumen Controller  -  Menggunakan Controller pada Route
+$router->get('/key', 'ExampleController@generateKey');
+
+$router->post('/yogi', 'ExampleController@yogiPost');
+
+// $router->get('/key', function ()
+// {
+//     return str_random(32);
+// });
+
+// Lumen Framework API Tutorial - 08 Lumen Controller  -  Menggunakan Paramater dalam Controller
+$router->get('/user/{id}', 'ExampleController@getUser');
+
+$router->get('/post/cat1/{cat1}/cat2/{cat2}', 'ExampleController@getPost');
 
 $router->get('/foo', function ()
 {
@@ -38,10 +48,10 @@ $router->get('/get', function ()
     return 'GET';
 });
 
-$router->post('/post', function ()
-{
-    return 'POST';
-});
+// $router->post('/post', function ()
+// {
+//     return 'POST';
+// });
 $router->put('/put', function ()
 {
     return 'PUT';
@@ -63,10 +73,10 @@ $router->options('/options', function ()
 
 //Basic Route Parameter Dinamis
 //Lumen Framework API Tutorial - 03 Lumen Route - Memberikan Parameter Dinamis pada URI
-$router->get('user/{id}', function ($id)
-{
-    return 'User id = ' . $id;
-});
+// $router->get('user/{id}', function ($id)
+// {
+//     return 'User id = ' . $id;
+// });
 
 $router->get('post/{postId}/comments/{commentsId}', function ($postId, $commentsId)
 {
@@ -91,14 +101,24 @@ $router->get('profile/awyogi', ['as' => 'route.profile', function ()
     return 'Route Alias Name';
 }]);
 
-$router->group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => ''], function () use ($router)
+$router->group(['prefix' => 'admin'], function () use ($router)
 {
-    $router->get('home', function ()
+    $router->get('/', function ()
     {
-        return 'Home Admin';
+        return null;
     });
+    // Lumen Framework API Tutorial - 06 Lumen Middleware  -  Menggunakan Middleware pada Route
+    $router->get('home', ['middleware' => 'age', function ()
+    {
+        return 'old Enough';
+    }]);
     $router->get('profile', function ()
     {
         return 'Profile Admin';
     });
+});
+// Lumen Framework API Tutorial - 06 Lumen Middleware  -  Menggunakan Middleware pada Route
+$router->get('/fail', function ()
+{
+    return 'not yet mature';
 });
