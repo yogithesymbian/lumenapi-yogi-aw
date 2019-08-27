@@ -23,9 +23,10 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+//uncoment for idstack_lumenauth TUTORIAL CHAPTER 14
+$app->withFacades();
 
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,7 @@ $app->singleton(
 //    App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
+//this a service | or | alias
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'age' => \App\Http\Middleware\Age::class
@@ -79,8 +81,9 @@ $app->routeMiddleware([
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+//uncoment for idstack_lumenauth TUTORIAL CHAPTER 14
+$app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*
